@@ -11,7 +11,11 @@ class LinkedList {
         this.length = 0
     }
 
-    insertBefore(value) {
+    incrementLength() {
+        this.length++
+    }
+
+    prepend(value) {
         this.head.unshift(new Node(value))
         this.length++
 
@@ -22,7 +26,7 @@ class LinkedList {
         }
     }
 
-    insertAfter(value) {
+    append(value) {
         this.head.push(new Node(value))
         this.length++
 
@@ -33,5 +37,7 @@ class LinkedList {
         }
     }
 
-    
+    insertAfter(index, value) {
+        
+    }    
 }
