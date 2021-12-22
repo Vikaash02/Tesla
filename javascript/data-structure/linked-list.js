@@ -2,6 +2,7 @@ class Node {
     constructor(data) {
         this.data = data
         this.next = null
+        this.is = 'Node'
     }
 }
 
@@ -38,7 +39,8 @@ class LinkedList {
     }
 
     prepend(value) {
-        this.head.unshift(new Node(value))
+        value = (value.is == 'Node') ? value : new Node(value)
+        this.head.unshift(value)
         this.incrementLength()
 
         if(this.head[1]) {
@@ -49,7 +51,8 @@ class LinkedList {
     }
 
     append(value) {
-        this.head.push(new Node(value))
+        value = (value.is == 'Node') ? value : new Node(value)
+        this.head.push(value)
         this.incrementLength()
 
         if(this.head[1]) {
@@ -60,33 +63,38 @@ class LinkedList {
     }
 
     insertAfter(index, value) {
+        value = (value.is == 'Node') ? value : new Node(value)
+
         if(index == (this.length - 1)) {
             this.append(value)
         } else if((index >= this.length) || (index < 0)) {
             this.throwError("Reference index for insertAfter() does not exist!")
         } else {
-            this.head.splice(index, 0, new Node(value))
+            this.head.splice(index + 1, 0, value)
             this.incrementLength()
         }
     }
 
     insertBefore(index, value) {
+        value = (value.is == 'Node') ? value : new Node(value)
+
         if(index == 0) {
             this.prepend(value)
         } else if((index >= this.length) || (index <= 0)) {
             this.throwError("Reference index for insertAfter() does not exist!")
         } else {
-            this.head.splice(index, 0, new Node(value))
+            this.head.splice(index, 0, value)
             this.incrementLength()
         }
     }    
 }
 
+let test_node = new Node(3.4)
 let test_linkedList = new LinkedList()
 
-test_linkedList.append(3)
-test_linkedList.prepend(6)
-test_linkedList.insertAfter(0, 5)
-test_linkedList.insertBefore(1, 3)
+test_linkedList.append(test_node)
+test_linkedList.prepend(new Node("Hey"))
+test_linkedList.insertAfter(0, true)
+test_linkedList.insertBefore(2, 4.3)
 
-console.log(test_linkedList.join())
+console.log(test_linkedList.join(), test_linkedList.length)
